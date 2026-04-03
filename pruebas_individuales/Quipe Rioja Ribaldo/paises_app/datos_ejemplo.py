@@ -19,10 +19,10 @@ datos = [
         "bandera_emoji": "🇧🇴",
         "descripcion": "País plurinacional en el corazón de Sudamérica, conocido por su diversidad cultural y natural.",
         "valores": [
-            ("naturaleza",  "Salar de Uyuni",    "El salar más grande del mundo, con más de 10.000 km².", "🏔️"),
-            ("tradicion",   "Carnaval de Oruro",  "Patrimonio cultural inmaterial de la Humanidad por la UNESCO.", "🎭"),
-            ("gastronomia", "Salteñas",           "Empanadas jugosas típicas de Bolivia, consumidas como desayuno.", "🥟"),
-            ("monumento",   "Tiwanaku",           "Ciudad precolombina y centro espiritual de la cultura Tiwanaku.", "🏛️"),
+            ("naturaleza",  "Salar de Uyuni",    "El salar más grande del mundo, con más de 10.000 km².", ""),
+            ("tradicion",   "Carnaval de Oruro",  "Patrimonio cultural inmaterial de la Humanidad por la UNESCO.", ""),
+            ("gastronomia", "Salteñas",           "Empanadas jugosas típicas de Bolivia, consumidas como desayuno.", ""),
+            ("monumento",   "Tiwanaku",           "Ciudad precolombina y centro espiritual de la cultura Tiwanaku.", ""),
         ],
     },
     {
@@ -36,10 +36,10 @@ datos = [
         "bandera_emoji": "🇯🇵",
         "descripcion": "Nación insular de Asia Oriental famosa por su mezcla única de tradición y modernidad.",
         "valores": [
-            ("tradicion",   "Ceremonia del té",   "El Chanoyu es una práctica espiritual y estética milenaria.", "🍵"),
-            ("naturaleza",  "Monte Fuji",         "Volcán sagrado símbolo de Japón con 3.776 metros de altitud.", "🗻"),
-            ("gastronomia", "Sushi",              "Preparación de arroz avinagrado con pescado crudo o cocido.", "🍣"),
-            ("deporte",     "Sumo",               "Arte marcial y deporte nacional con más de 2.000 años de historia.", "🤼"),
+            ("tradicion",   "Ceremonia del té",   "El Chanoyu es una práctica espiritual y estética milenaria.", ""),
+            ("naturaleza",  "Monte Fuji",         "Volcán sagrado símbolo de Japón con 3.776 metros de altitud.", ""),
+            ("gastronomia", "Sushi",              "Preparación de arroz avinagrado con pescado crudo o cocido.", ""),
+            ("deporte",     "Sumo",               "Arte marcial y deporte nacional con más de 2.000 años de historia.", ""),
         ],
     },
     {
@@ -53,10 +53,10 @@ datos = [
         "bandera_emoji": "🇮🇹",
         "descripcion": "Cuna del Renacimiento, hogar de una gastronomía y arte incomparables.",
         "valores": [
-            ("monumento",   "Coliseo Romano",     "Anfiteatro del siglo I d.C., símbolo del Imperio Romano.", "🏛️"),
-            ("gastronomia", "Pizza Napolitana",   "Patrimonio cultural inmaterial de la UNESCO desde 2017.", "🍕"),
-            ("musica",      "Ópera",              "Forma musical nacida en Italia en el siglo XVI, de influencia mundial.", "🎼"),
-            ("personaje",   "Leonardo da Vinci",  "Polímata del Renacimiento: pintor, escultor, científico e inventor.", "🎨"),
+            ("monumento",   "Coliseo Romano",     "Anfiteatro del siglo I d.C., símbolo del Imperio Romano.", ""),
+            ("gastronomia", "Pizza Napolitana",   "Patrimonio cultural inmaterial de la UNESCO desde 2017.", ""),
+            ("musica",      "Ópera",              "Forma musical nacida en Italia en el siglo XVI, de influencia mundial.", ""),
+            ("personaje",   "Leonardo da Vinci",  "Polímata del Renacimiento: pintor, escultor, científico e inventor.", ""),
         ],
     },
 ]
