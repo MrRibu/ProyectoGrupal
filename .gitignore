@@ -1,0 +1,15 @@
+# Entorno virtual (No se sube porque es específico de cada PC)
+venv/
+.venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local (Cada uno tendrá la suya en Postgres)
+db.sqlite3
+.env
+
+# Archivos de sistema de Windows
+Thumbs.db
+desktop.ini
