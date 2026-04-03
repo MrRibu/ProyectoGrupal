@@ -1,0 +1,99 @@
+{% extends "paises/base.html" %}
+{% block title %}{{ accion }} país — Atlas Mundial{% endblock %}
+
+{% block extra_css %}
+<style>
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    max-width: 700px;
+  }
+  .form-section-title {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 1.75rem 0 1rem;
+    padding-bottom: .4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .form-section-title:first-child { margin-top: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    <small>Países</small>
+    {{ accion }} país {% if pais %}— {{ pais.bandera_emoji }} {{ pais.nombre }}{% endif %}
+  </h1>
+  <a href="{% url 'lista_paises' %}" class="btn btn-outline">← Volver</a>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-section-title">Identificación</div>
+    <div class="grid-2">
+      <div class="form-group">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+        {% if form.nombre.errors %}<ul class="errorlist">{% for e in form.nombre.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.codigo_iso.label_tag }}
+        {{ form.codigo_iso }}
+        {% if form.codigo_iso.errors %}<ul class="errorlist">{% for e in form.codigo_iso.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        {{ form.bandera_emoji.label_tag }}
+        {{ form.bandera_emoji }}
+      </div>
+      <div class="form-group">
+        {{ form.continente.label_tag }}
+        {{ form.continente }}
+      </div>
+    </div>
+
+    <div class="form-section-title">Datos generales</div>
+    <div class="grid-2">
+      <div class="form-group">
+        {{ form.capital.label_tag }}
+        {{ form.capital }}
+      </div>
+      <div class="form-group">
+        {{ form.poblacion.label_tag }}
+        {{ form.poblacion }}
+        {% if form.poblacion.errors %}<ul class="errorlist">{% for e in form.poblacion.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group">
+        {{ form.idioma.label_tag }}
+        {{ form.idioma }}
+      </div>
+      <div class="form-group">
+        {{ form.moneda.label_tag }}
+        {{ form.moneda }}
+      </div>
+    </div>
+
+    <div class="form-section-title">Descripción opcional</div>
+    <div class="form-group">
+      {{ form.descripcion.label_tag }}
+      {{ form.descripcion }}
+    </div>
+
+    <div style="display:flex;gap:.75rem;margin-top:1.5rem">
+      <button type="submit" class="btn btn-primary">💾 {{ accion }} país</button>
+      <a href="{% url 'lista_paises' %}" class="btn btn-outline">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

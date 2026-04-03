@@ -1,0 +1,183 @@
+{% extends "paises/base.html" %}
+{% block title %}Atlas Mundial — Países{% endblock %}
+
+{% block extra_css %}
+<style>
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🌍';
+    position: absolute;
+    right: 2rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 8rem;
+    opacity: .08;
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: .75rem;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p { color: #aaa; font-size: 1rem; max-width: 520px; }
+  .stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-lbl { font-size: .75rem; color: #888; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex; gap: .75rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+  .filter-bar input, .filter-bar select {
+    padding: .6rem .9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    background: #fff;
+    outline: none;
+    color: var(--ink);
+    transition: border-color .2s;
+  }
+  .filter-bar input:focus, .filter-bar select:focus { border-color: var(--gold); }
+  .filter-bar input { flex: 1; min-width: 200px; }
+
+  /* Country cards */
+  .paises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .pais-card { display: flex; flex-direction: column; }
+  .pais-card-top {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    flex: 1;
+  }
+  .pais-flag { font-size: 2.5rem; margin-bottom: .75rem; line-height: 1; }
+  .pais-nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: .25rem;
+  }
+  .pais-meta { font-size: .82rem; color: #888; margin-bottom: .75rem; }
+  .pais-meta span { margin-right: .75rem; }
+  .pais-card-bottom {
+    padding: .85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+  }
+  .pais-valores-count {
+    font-size: .8rem;
+    color: #888;
+  }
+  .pais-valores-count strong { color: var(--gold); }
+
+  .empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: #aaa;
+  }
+  .empty-state .big { font-size: 4rem; margin-bottom: 1rem; }
+  .empty-state h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--ink);
+    margin-bottom: .5rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<div class="hero">
+  <h1>Explora el <em>mundo</em><br>desde aquí</h1>
+  <p>Registra países y sus valores culturales, históricos y naturales más representativos.</p>
+  <div class="stats">
+    <div>
+      <div class="stat-num">{{ total }}</div>
+      <div class="stat-lbl">País{% if total != 1 %}es{% endif %} registrado{% if total != 1 %}s{% endif %}</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTROS -->
+<form method="get" class="filter-bar">
+  <input type="text" name="q" value="{{ q }}" placeholder="🔍  Buscar por nombre, capital, idioma…">
+  <select name="continente">
+    <option value="">Todos los continentes</option>
+    {% for cod, nom in continentes %}
+      <option value="{{ cod }}" {% if continente_sel == cod %}selected{% endif %}>{{ nom }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary">Filtrar</button>
+  {% if q or continente_sel %}
+    <a href="{% url 'lista_paises' %}" class="btn btn-outline">Limpiar</a>
+  {% endif %}
+  <a href="{% url 'crear_pais' %}" class="btn btn-teal" style="margin-left:auto">+ Nuevo país</a>
+</form>
+
+<!-- GRID DE PAÍSES -->
+{% if paises %}
+  <div class="paises-grid">
+    {% for pais in paises %}
+    <div class="card pais-card">
+      <div class="pais-card-top">
+        <div class="pais-flag">{{ pais.bandera_emoji|default:"🏳️" }}</div>
+        <div class="pais-nombre">{{ pais.nombre }}</div>
+        <div class="pais-meta">
+          <span>📍 {{ pais.capital }}</span>
+          <span>🌍 {{ pais.get_continente_display }}</span>
+        </div>
+        <div class="pais-meta">
+          <span>👥 {{ pais.poblacion_formato }}</span>
+          <span>💬 {{ pais.idioma }}</span>
+          <span>💰 {{ pais.moneda }}</span>
+        </div>
+        {% if pais.descripcion %}
+          <p style="font-size:.85rem;color:#666;margin-top:.5rem;line-height:1.5">
+            {{ pais.descripcion|truncatechars:100 }}
+          </p>
+        {% endif %}
+      </div>
+      <div class="pais-card-bottom">
+        <span class="pais-valores-count">
+          <strong>{{ pais.num_valores }}</strong> valor{% if pais.num_valores != 1 %}es{% endif %}
+        </span>
+        <div style="display:flex;gap:.5rem">
+          <a href="{% url 'detalle_pais' pais.pk %}" class="btn btn-outline btn-sm">Ver</a>
+          <a href="{% url 'editar_pais' pais.pk %}" class="btn btn-primary btn-sm">Editar</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">
+    <div class="big">🗺️</div>
+    <h2>No hay países registrados</h2>
+    <p style="margin-bottom:1.5rem">{% if q %}Intenta con otra búsqueda.{% else %}Empieza agregando el primero.{% endif %}</p>
+    <a href="{% url 'crear_pais' %}" class="btn btn-primary">+ Registrar primer país</a>
+  </div>
+{% endif %}
+{% endblock %}
